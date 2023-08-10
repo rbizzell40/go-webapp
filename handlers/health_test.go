@@ -19,7 +19,7 @@ func TestHealth(t *testing.T) {
 		mux := chi.NewMux()
 		handlers.Health(mux)
 		code, _, _ := makeGetRequest(mux, "/health")
-		is.Equal(http.StatusOk, code)
+		is.Equal(http.StatusOK, code)
 	})
 }
 
@@ -27,7 +27,7 @@ func TestHealth(t *testing.T) {
 func makeGetRequest(handler http.Handler, target string) (int, http.Header, string) {
 	req := httptest.NewRequest(http.MethodGet, target, nil)
 	res := httptest.NewRecorder()
-	handler.ServeHttp(res, req)
+	handler.ServeHTTP(res, req)
 	result := res.Result()
 	bodyBytes, err := io.ReadAll(result.Body)
 	if err != nil {
